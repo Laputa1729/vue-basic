@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+        <script src="../js/vue.js"></script>
+    </head>
+    <body>
+        <div id="root">
+            <h2>学校名称：{{ name }}</h2>
+            <h2>学校地址：{{ address }}</h2>
+        </div>
+
+        <!-- 
+            vm对象代理data对象中的属性(读/写)
+            基本原理：
+                1.通过Object.defineProperty()把data里的所有属性添加到vm上
+                2.vm上的同名属性，都配上getter/setter
+                3.getter/setter就能(读/写)data了
+         -->
+
+        <script>
+            Vue.config.productionTip = false;
+
+            const vm = new Vue({
+                el: '#root',
+                data: {
+                    name: 'Laputa',
+                    address: 'Sky',
+                },
+                // 函数式
+                // data() {
+                //     return {
+                //         name: 'Laputa',
+                //         address: 'Sky',
+                //     };
+                // },
+            });
+
+            vm.name = '66666';
+            // data:{} 里的属性值也跟着变
+        </script>
+    </body>
+</html>

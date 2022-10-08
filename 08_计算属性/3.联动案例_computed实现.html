@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+        <script src="../js/vue.js"></script>
+    </head>
+    <body>
+        <div id="root">
+            姓：<input type="text" v-model="firstName" /><br /><br />
+            名：<input type="text" v-model="lastName" />
+            <hr />
+            全名：<span>{{ fullName }}</span>
+        </div>
+
+        <!-- 
+            1.计算属性最终会出现在vm上，可直接读取
+            2.如果要修改计算属性，必须去写setter，响应修改它本身依赖的数据
+         -->
+
+        <script>
+            Vue.config.productionTip = false;
+
+            const vm = new Vue({
+                el: '#root',
+                data: {
+                    firstName: '张',
+                    lastName: '三',
+                },
+                computed: {
+                    fullName: {
+                        // 只要有人读取fullName，get就触发
+                        get() {
+                            console.log('get被调用了！');
+                            return this.firstName + '-' + this.lastName;
+                            // getter走完后，fullName就被挂载早vm上了，就可以直接访问：vm.fullName
+                        },
+                        // setter示例：
+                        // 当fullName被修改，set就触发
+                        set(newValue) {
+                            console.log('set被调用了！！！');
+                            let arr = newValue.split('-');
+                            this.firstName = arr[0];
+                            this.lastName = arr[1];
+                        },
+                    },
+                },
+                methods: {},
+            });
+        </script>
+    </body>
+</html>

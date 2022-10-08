@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+
+    <body>
+        <script>
+            // 场景：给对象添加属性
+            let number = 19;
+            let person = {
+                name: '张三',
+                sex: '男',
+            };
+
+            // 这种方式添加的新属性，淡紫色，默认不可枚举，不可修改
+            Object.defineProperty(person, 'age', {
+                // value: 18,
+                // enumerable: true, // 控制属性是否可枚举，默认 false
+                // writable: true, // 控制属性是否可修改，默认 false
+                // configurable: true, // 控制属性是否可删除，默认 false
+
+                // 当有人访问age属性，get函数(getter)被调用，return的值就赋给了age
+                get: function () {
+                    console.log('有人在访问age属性！');
+                    return number;
+                },
+                // 当有人修改age属性，set函数(setter)被调用，且收到参数
+                set: function test123(newValue) {
+                    console.log('有人修改了age属性，值为：' + newValue);
+                    number = newValue;
+                    // 就这之后，变量number和对象person就产生了联动，
+                },
+            });
+
+            // 枚举对象属性
+            // console.log(Object.keys(person));
+
+            // console.log(person);
+        </script>
+    </body>
+</html>

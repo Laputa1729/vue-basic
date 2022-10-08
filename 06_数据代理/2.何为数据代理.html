@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <script>
+            // obj1 和 obj2
+            // 数据代理：obj2 要(读/写) obj1 的属性
+
+            let obj1 = { x: 100 };
+            let obj2 = { y: 200 };
+
+            Object.defineProperty(obj2, 'x', {
+                get() {
+                    return obj1.x;
+                },
+                set(newValue) {
+                    obj1.x = newValue;
+                    // 这样obj2乱改x的值，obj1也联动起来跟着变
+                },
+            });
+
+            obj2.x = 999;
+
+            console.log(obj1);
+        </script>
+    </body>
+</html>
