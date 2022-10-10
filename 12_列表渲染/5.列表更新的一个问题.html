@@ -43,9 +43,33 @@
                         name: '马老板',
                         age: 50,
                         sex: '男',
-                    }; // 不奏效
+                    }; // 不奏效？？？
 
-                    console.log(this.persons);
+                    // 什么原因？？？
+                    // 赋值的方式改数组元素，没用
+                    // tips:
+                    // 数组的子元素，没有为它服务的(getter,setter)，所以不是响应式的
+
+                    // vue环境内：
+                    // push()
+                    // pop()
+                    // shift()
+                    // unshift()
+                    // splice()
+                    // sort()
+                    // reverse()
+                    // 只有用这些方法，修改数组，才能实现响应式更新
+
+                    this.persons.splice(0, 1, {
+                        id: '001',
+                        name: '马老板',
+                        age: 50,
+                        sex: '男',
+                    }); // 奏效了
+
+                    // 另外:
+                    // 也能实现，但不常用
+                    // this.$set(this.persons, 0, { id: '001', name: '马老板', age: 50, sex: '男' });
                 },
             },
         });
