@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>Document</title>
+        <script type="text/javascript" src="../js/vue.js"></script>
+    </head>
+    <body>
+        <div id="root">
+            <h2>当前的n值是：{{ n }}</h2>
+            <button @click="add">点我n+1</button>
+            <button @click="byebye">点我销毁vm</button>
+        </div>
+    </body>
+
+    <script type="text/javascript">
+        Vue.config.productionTip = false;
+
+        const vm = new Vue({
+            el: '#root',
+            // 演示template的用法
+            // template: `
+            //     <div>
+            //         <h2>当前的n值是：{{ n }}</h2>
+            //         <button @click="add">点我n+1</button>
+            //     </div>
+            // `,
+            data: {
+                n: 1,
+            },
+            methods: {
+                add() {
+                    this.n++;
+                },
+                byebye() {
+                    console.log('byebye');
+                    this.$destroy();
+                },
+            },
+            // ①
+            beforeCreate() {
+                // console.log(this);
+                // debugger;
+            },
+            // ②
+            created() {},
+            // ③
+            beforeMount() {},
+            // ④ Create vm.$el and replace 'el' with it. 编译好的虚拟dom覆盖放入浏览器，至此，初始化过程结束
+            mounted() {
+                console.log('mounted', this.$el instanceof HTMLElement);
+            },
+            // ⑤ 数据是新的，但页面是旧的
+            beforeUpdate() {},
+            // ⑥ 更新同步完成
+            updated() {},
+            // ⑦ 做点收尾工作：关闭定时器、取消订阅消息、解绑自定义事件...
+            beforeDestroy() {},
+            // ⑧
+            destroyed() {},
+        });
+    </script>
+</html>
