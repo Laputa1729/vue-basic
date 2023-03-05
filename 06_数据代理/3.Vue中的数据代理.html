@@ -11,6 +11,9 @@
     <div id="root">
       <h2>学校名称：{{ name }}</h2>
       <h2>学校地址：{{ address }}</h2>
+      <hr>
+
+      <img src="../img/数据代理示意图.png" alt="">
     </div>
 
     <!--
@@ -18,7 +21,7 @@
         基本原理：
             1.通过 Object.defineProperty() 把 data 里的所有属性添加到 vm 上
             2.vm 上的同名属性，都配上 getter/setter
-            3.getter/setter 就能(读/写) data 了
+            3.getter/setter 就能(读/写) data 中对应属性了
      -->
 
     <script>
@@ -45,6 +48,7 @@
 
       // vm.name = '66666';
       // data:{} 里的属性值也跟着变
+
     </script>
   </body>
 </html>
