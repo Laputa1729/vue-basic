@@ -12,7 +12,7 @@
       姓：<input type="text" v-model="firstName"/><br/><br/>
       名：<input type="text" v-model="lastName"/>
       <hr/>
-      全名：<span>{{ firstName }}-{{ lastName }}</span>
+      全名：<span>{{ fullName }}</span>
     </div>
 
     <script>
@@ -24,7 +24,13 @@
           firstName: '张',
           lastName: '三',
         },
-        methods: {},
+        computed: {
+          // 只读不改，用简写。
+          fullName() {
+            console.log('get被调用了！');
+            return this.firstName + '-' + this.lastName;
+          }
+        }
       });
     </script>
   </body>
