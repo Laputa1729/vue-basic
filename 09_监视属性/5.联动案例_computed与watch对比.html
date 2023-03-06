@@ -15,8 +15,13 @@
 
     <!--
       computed 和 watch 之间的区别：
+        1.computed 有缓存，watch 没缓存。
+        2.computed 不支持异步，watch 支持异步。
+        3.computed 需要返回值，watch 不需要返回值。
+        4.computed 的值不能在 data 中定义，watch 需要在 data 中定义。
+
         1.computed 能完成的功能，watch 都可以完成。
-        2.watch 能完成的功能，computed 不一定能完成，例如：watch 可以进行异步操作。
+        2.watch 能完成的功能，computed 不一定能完成，例如：watch 可以进行异步任务。
         3.computed 要有返回值，不能开启异步任务。
       两个重要的小原则：
         1.所有被 Vue 管理的函数，最好写成普通函数，这样 this 的指向才是 vm 或 组件实例对象。
