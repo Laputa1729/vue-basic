@@ -1,86 +1,80 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8" />
-        <title>列表过滤</title>
-        <script type="text/javascript" src="../js/vue.js"></script>
-    </head>
-    <body>
-        <!-- 准备好一个容器-->
-        <div id="root">
-            <h2>人员列表</h2>
-            <button @click="updateMei">更新马冬梅的信息</button>
-            <ul>
-                <li v-for="(p, index) in persons" :key="p.id">
-                    {{p.name}}-{{p.age}}-{{p.sex}}
-                </li>
-            </ul>
-        </div>
-    </body>
-
+<html lang="en">
+  <head>
+    <meta charset="UTF-8"/>
+    <title>列表更新</title>
+    <script type="text/javascript" src="../js/vue.js"></script>
+  </head>
+  <body>
+    <div id="root">
+      <h2>人员列表</h2>
+      <button @click="updateMei">更新马冬梅的信息</button>
+      <ul>
+        <li v-for="(p, index) in persons" :key="p.id">
+          {{ p.name }}-{{ p.age }}-{{ p.sex }}
+        </li>
+      </ul>
+    </div>
+    
     <script type="text/javascript">
-        Vue.config.productionTip = false;
+      Vue.config.productionTip = false;
 
-        // 用computed实现
-        const vm = new Vue({
-            el: '#root',
-            data: {
-                persons: [
-                    { id: '001', name: '马冬梅', age: 30, sex: '女' },
-                    { id: '002', name: '周冬雨', age: 31, sex: '女' },
-                    { id: '003', name: '周杰伦', age: 18, sex: '男' },
-                    { id: '004', name: '温兆伦', age: 22, sex: '男' },
-                ],
-            },
-            methods: {
-                // 示例：修改列表数据
-                updateMei() {
-                    // this.persons[0].name = '马老板'; // 奏效
-                    // this.persons[0].age = 50; // 奏效
-                    // this.persons[0].sex = '男'; // 奏效
-                    this.persons[0] = {
-                        id: '001',
-                        name: '马老板',
-                        age: 50,
-                        sex: '男',
-                    }; // 不奏效？？？
+      // 用computed实现
+      const vm = new Vue({
+        el: '#root',
+        data: {
+          persons: [
+            {id: '001', name: '马冬梅', age: 30, sex: '女'},
+            {id: '002', name: '周冬雨', age: 31, sex: '女'},
+            {id: '003', name: '周杰伦', age: 18, sex: '男'},
+            {id: '004', name: '温兆伦', age: 22, sex: '男'},
+          ],
+        },
+        methods: {
+          // 示例：修改列表数据
+          updateMei() {
+            // this.persons[0].name = '马老板';  // 奏效
+            // this.persons[0].age = 50;  // 奏效
+            // this.persons[0].sex = '男';  // 奏效
+            this.persons[0] = {
+              id: '001',
+              name: '马老板',
+              age: 50,
+              sex: '男',
+            };  // 不奏效？？？
 
-                    // 什么原因？？？
-                    // 赋值的方式改数组元素，没用
-                    // tips:
-                    // 数组的子元素，没有为它服务的(getter,setter)，所以不是响应式的
+            /*
+              什么原因？？？
+              
+                赋值的方式改数组元素，没用。
+                tips: 数组的子元素，没有为它服务的(getter,setter)，所以不是响应式的。
+    
+                Vue环境内：
+                push()
+                pop()      // 删除并返回最后一个元素
+                shift()    // 删除并返回第一个元素
+                unshift()  // 开头添加元素，返回新的 length
+                splice()
+                sort()     // 元素排序
+                reverse()  // 颠倒元素
+                
+                只有用这7个方法，【修改原数组】，才能实现响应式更新。
+            */
 
-                    // vue环境内：
-                    // push()
-                    // pop()
-                    // shift()
-                    // unshift()
-                    // splice()
-                    // sort()
-                    // reverse()
-                    // 只有用这些方法，修改数组，才能实现响应式更新
+            this.persons.splice(0, 1, {
+              id: '001',
+              name: '马老板',
+              age: 50,
+              sex: '男',
+            }); // 奏效了
 
-                    this.persons.splice(0, 1, {
-                        id: '001',
-                        name: '马老板',
-                        age: 50,
-                        sex: '男',
-                    }); // 奏效了
-
-                    // 另外:
-                    // 也能实现，但不常用
-                    // this.$set(this.persons, 0, { id: '001', name: '马老板', age: 50, sex: '男' });
-                },
-            },
-        });
-
-        /* // 数组排序
-        let arr = [1, 3, 2, 6, 4, 5];
-        arr.sort(function (a, b) {
-            // return a - b; // 升序
-            return b - a; // 降序
-        });
-
-        console.log(arr); */
+            // 另外:
+            // 也能实现，但不常用
+            // this.$set(this.persons, 0, { id: '001', name: '马老板', age: 50, sex: '男' });
+          },
+        },
+      });
+      
     </script>
+  </body>
 </html>

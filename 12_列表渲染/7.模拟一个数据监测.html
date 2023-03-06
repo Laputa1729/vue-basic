@@ -1,50 +1,61 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Document</title>
-    </head>
-    <body></body>
+  <head>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>简单模拟数据监测</title>
+  </head>
+  <body>
     <script>
-        let data = {
-            name: 'Laputa',
-        };
+      let data = {
+        name: 'Laputa',
+        address: 'Sky'
+      };
+      // 这个示例：触发了递归，循环调用，成了死局
+      /*
+      Object.defineProperty(data, 'name', {
+        get: function () {
+          return data.name;
+        },
+        set: function (val) {
+          data.name = val;
+        },
+      });
+      */
+      
+      // ================================================================
 
-        // 这个示例：触发了递归，循环调用，成了死局
-        Object.defineProperty(data, 'name', {
-            get: function () {
-                return data.name;
+      // 构造函数 Observer，简单地说：让 obs 和 data 产生数据代理
+      function Observer(obj) {
+        // 汇总对象中所有的属性，形成一个数组
+        const keys = Object.keys(obj);
+        // 遍历
+        keys.forEach((k) => {
+          Object.defineProperty(this, k, {  // 这里的 this 是 obs 实例对象
+            get() {
+              return obj[k];
             },
-            set: function (val) {
-                data.name = val;
+            set(val) {
+              console.log(
+                `${k}被改了，我要去解析模板，生成虚拟DOM.....我要开始忙了`
+              );
+              obj[k] = val;
             },
+          });
         });
+      }
 
-        // vue通过构造函数Observer，监视data的属性变化
-        // 准备一个vm实例对象
-        const obs = new Observer(data);
-        let vm = {};
-        vm._data = data = obs;
-
-        function Observer(obj) {
-            // 汇总对象中所有的属性形成一个数组
-            const keys = Object.keys(obj);
-            // 遍历
-            keys.forEach((k) => {
-                Object.defineProperty(this, k, {
-                    get() {
-                        return obj[k];
-                    },
-                    set(val) {
-                        console.log(
-                            `${k}被改了，我要去解析模板，生成虚拟DOM.....我要开始忙了`
-                        );
-                        obj[k] = val;
-                    },
-                });
-            });
-        }
+      // 创建一个观察者实例对象，监视 data 的属性变化
+      const obs = new Observer(data);
+      console.log('obs: ', obs);
+      
+      // 准备一个 vm 实例对象
+      let vm = {};
+      vm._data = data = obs;
+      
+      /* vm._data.name = '1729'; */
+      
     </script>
+  </body>
 </html>

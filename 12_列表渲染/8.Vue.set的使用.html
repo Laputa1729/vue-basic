@@ -3,11 +3,9 @@
   <head>
     <meta charset="UTF-8"/>
     <title>Vue监测数据改变的原理</title>
-    <!-- 引入Vue -->
     <script type="text/javascript" src="../js/vue.js"></script>
   </head>
   <body>
-    <!-- 准备好一个容器-->
     <div id="root">
       <h1>学校信息</h1>
       <h2>学校名称：{{school.name}}</h2>
@@ -15,7 +13,7 @@
       <h2>校长是：{{school.leader}}</h2>
       <hr/>
       <h1>学生信息</h1>
-      <button @click="addSex">添加一个性别属性，默认值是男</button>
+      <button @click="addSex">添加一个性别属性，默认值是：男</button>
       <h2>姓名：{{student.name}}</h2>
       <h2 v-if="student.sex">性别：{{student.sex}}</h2>
       <h2>年龄：真实{{student.age.rAge}}，对外{{student.age.sAge}}</h2>
@@ -26,49 +24,49 @@
         </li>
       </ul>
     </div>
-  </body>
+    
+    <script type="text/javascript">
+      Vue.config.productionTip = false; //阻止 vue 在启动时生成生产提示。
 
-  <script type="text/javascript">
-    Vue.config.productionTip = false; //阻止 vue 在启动时生成生产提示。
-
-    const vm = new Vue({
-      el: '#root',
-      data: {
-        school: {
-          name: 'Laputa',
-          address: '北京',
-        },
-        student: {
-          name: 'tom',
-          age: {
-            rAge: 40,
-            sAge: 29,
+      const vm = new Vue({
+        el: '#root',
+        data: {
+          school: {
+            name: 'Laputa',
+            address: '北京',
           },
-          friends: [
-            {name: 'jerry', age: 35},
-            {name: 'tony', age: 36},
-          ],
+          student: {
+            name: 'tom',
+            age: {
+              rAge: 40,
+              sAge: 29,
+            },
+            friends: [
+              {name: 'jerry', age: 35},
+              {name: 'tony', age: 36},
+            ],
+          },
         },
-      },
-      methods: {
-        addSex() {
-          // Vue.set(this.student,'sex','男')
-          this.$set(this.student, 'sex', '男');
+        methods: {
+          addSex() {
+            // Vue.set(this.student,'sex','男');
+            this.$set(this.student, 'sex', '男');
+          },
         },
-      },
-    });
+      });
 
-    // 向响应式对象中添加一个 property，并确保这个新 property 同样是响应式的，且触发视图更新。
-    // Vue.set(target, key, val)给数据源追加属性，并且给你配完(getter,setter)，完成响应式
-    // 注意：1.传入的target不能是vm
-    // 	    2.target不能是vm.data
+      // 向响应式对象中添加一个 property，并确保这个新 property 同样是响应式的，且触发视图更新。
+      // Vue.set(target, key, val) 这个 API 给数据源追加属性，并且给你配完(getter,setter)，完成响应式
+      // 注意：1.传入的target不能是 vm
+      // 	    2.target不能是 vm._data
 
-    // 控制台示例：
-    Vue.set(vm._data.school, 'leader', 'xx校长');
-    vm.$set(vm._data.school, 'leader', 'xx校长');
+      // 控制台示例：
+      Vue.set(vm._data.school, 'leader', 'xx校长');
+      vm.$set(vm._data.school, 'leader', 'xx校长');  // <=> vm.$set(vm.school, 'leader', 'xx校长');
 
-    // tips:
-    // 数组的子元素，没有为它服务的(getter,setter)，所以不是响应式的
-    // vm._data.arr[0] = '改掉元素的值';  // 没用
-  </script>
+      // tips:
+      // 数组的子元素，没有为它服务的(getter,setter)，所以不是响应式的
+      // vm._data.arr[0] = '改掉元素的值';  // 没用
+    </script>
+  </body>
 </html>
