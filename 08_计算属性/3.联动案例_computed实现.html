@@ -4,7 +4,7 @@
     <meta charset="UTF-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Document</title>
+    <title>姓名案例_computed实现</title>
     <script src="../js/vue.js"></script>
   </head>
   <body>
@@ -41,7 +41,7 @@
             get() {
               console.log('get被调用了！');
               return this.firstName + '-' + this.lastName;
-              // getter 走完后，fullName 就被挂载早 vm 上了，就可以直接访问：vm.fullName
+              // getter 走完后，fullName 就被挂载在 vm 上了，就可以直接访问：vm.fullName
             },
             // setter 示例：当 fullName 被修改，set 就触发
             set(newValue) {
