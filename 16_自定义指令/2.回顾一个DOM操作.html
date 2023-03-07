@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8"/>
+    <title>Document</title>
+    <style>
+      .demo {
+        background-color: orange;
+      }
+    </style>
+  </head>
+  <body>
+    <button id="btn">点我创建一个输入框</button>
+    
+    <script type="text/javascript">
+      const btn = document.getElementById('btn')
+      btn.onclick = () => {
+        const input = document.createElement('input')
+
+        input.className = 'demo'
+        input.value = 99
+        input.onclick = () => {
+          alert(1)
+        }
+
+        document.body.appendChild(input)
+        /*
+          先把DOM插入页面，变成真实DOM，再做 focus、取父节点、兄弟节点…… 这类操作。
+        */
+        input.focus()
+        // input.parentElement.style.backgroundColor = 'skyblue'
+        console.log(input.parentElement)
+
+      }
+    </script>
+  </body>
+</html>
