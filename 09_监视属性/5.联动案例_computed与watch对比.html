@@ -42,7 +42,7 @@
         watch: {
           firstName(newValue) {
             // ★★★这里必须用箭头函数
-            // ★★★写成箭头函数后，这个匿名函数就没有了自己的 this，开始往外找，找到普通函数（firstName）的 this === vm
+            // ★★★写成箭头函数后，这个匿名函数就没有自己的 this，开始往上级词法作用域查找，找到普通函数（firstName）的 this === vm
             setTimeout(() => {
               console.log(this);
               this.fullName = newValue + '-' + this.lastName;
