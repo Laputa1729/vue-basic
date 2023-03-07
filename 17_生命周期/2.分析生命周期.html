@@ -1,63 +1,72 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8" />
-        <title>Document</title>
-        <script type="text/javascript" src="../js/vue.js"></script>
-    </head>
-    <body>
-        <div id="root">
-            <h2>当前的n值是：{{ n }}</h2>
-            <button @click="add">点我n+1</button>
-            <button @click="byebye">点我销毁vm</button>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8"/>
+    <title>Document</title>
+    <script type="text/javascript" src="../js/vue.js"></script>
+  </head>
+  <body>
+    <div id="root">
+      <h2>当前的n值是：{{ n }}</h2>
+      <button @click="add">点我n+1</button>
+      <button @click="byebye">点我销毁vm</button>
+    </div>
+  </body>
+  
+  <script type="text/javascript">
+    Vue.config.productionTip = false;
+
+    const vm = new Vue({
+      el: '#root',
+      // 演示template的用法
+      /*
+      template: `
+        <div>
+          <h2>当前的n值是：{{ n }}</h2>
+          <button @click="add">点我n+1</button>
         </div>
-    </body>
-
-    <script type="text/javascript">
-        Vue.config.productionTip = false;
-
-        const vm = new Vue({
-            el: '#root',
-            // 演示template的用法
-            // template: `
-            //     <div>
-            //         <h2>当前的n值是：{{ n }}</h2>
-            //         <button @click="add">点我n+1</button>
-            //     </div>
-            // `,
-            data: {
-                n: 1,
-            },
-            methods: {
-                add() {
-                    this.n++;
-                },
-                byebye() {
-                    console.log('byebye');
-                    this.$destroy();
-                },
-            },
-            // ①
-            beforeCreate() {
-                // console.log(this);
-                // debugger;
-            },
-            // ②
-            created() {},
-            // ③
-            beforeMount() {},
-            // ④ Create vm.$el and replace 'el' with it. 编译好的虚拟dom覆盖放入浏览器，至此，初始化过程结束
-            mounted() {
-                console.log('mounted', this.$el instanceof HTMLElement);
-            },
-            // ⑤ 数据是新的，但页面是旧的
-            beforeUpdate() {},
-            // ⑥ 更新同步完成
-            updated() {},
-            // ⑦ 做点收尾工作：关闭定时器、取消订阅消息、解绑自定义事件...
-            beforeDestroy() {},
-            // ⑧
-            destroyed() {},
-        });
-    </script>
+      `,
+      */
+      data: {
+        n: 1,
+      },
+      methods: {
+        add() {
+          this.n++;
+        },
+        byebye() {
+          console.log('byebye');
+          this.$destroy();
+        },
+      },
+      // ① 初始化：生命周期、事件
+      beforeCreate() {
+        // console.log(this);
+        // debugger
+      },
+      // ② 完成数据代理、数据监测，可以访问 data 和 methods 了
+      created() {
+      },
+      // ③ 此时，页面呈现的是[未经Vue编译]的dom结构
+      beforeMount() {
+      },
+      // ④ Create vm.$el and replace 'el' with it. 编译好的虚拟dom转为真实dom覆盖插入页面，至此，初始化过程结束
+      //   一般在此进行：开启定时器、发送网络请求、订阅消息、绑定自定义事件等
+      mounted() {
+        console.log('mounted', this.$el instanceof HTMLElement);
+      },
+      // ⑤ 触发更新，数据是新的，但页面是旧的，页面与数据尚未保持同步
+      beforeUpdate() {
+      },
+      // ⑥ 更新同步完成
+      updated() {
+      },
+      // ⑦ 做点收尾工作：关闭定时器、取消订阅消息、解绑[自定义事件]... 但是[原生dom事件]还在
+      beforeDestroy() {
+      },
+      // ⑧
+      destroyed() {
+      },
+    });
+  </script>
 </html>

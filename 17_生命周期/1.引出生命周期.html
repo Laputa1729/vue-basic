@@ -1,36 +1,39 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8" />
-        <title>Document</title>
-        <script type="text/javascript" src="../js/vue.js"></script>
-    </head>
-    <body>
-        <div id="root">
-            <h2 :style="{opacity: opacity}">欢迎学习Vue</h2>
-        </div>
-    </body>
+  <head>
+    <meta charset="UTF-8"/>
+    <title>Document</title>
+    <script type="text/javascript" src="../js/vue.js"></script>
+  </head>
+  <body>
+    <div id="root">
+      <h2 :style="{opacity: opacity}">欢迎学习Vue</h2>
+    </div>
+  </body>
+  
+  <script type="text/javascript">
+    Vue.config.productionTip = false;
 
-    <script type="text/javascript">
-        Vue.config.productionTip = false;
+    const vm = new Vue({
+      el: '#root',
+      data: {
+        opacity: 1,
+      },
+      mounted() {
+        setInterval(() => {  // 箭头函数，往外找 this，找到 vm
+          this.opacity -= 0.01;
+          if (this.opacity <= 0) this.opacity = 1;
+        }, 16);
+      },
+    });
 
-        const vm = new Vue({
-            el: '#root',
-            data: {
-                opacity: 1,
-            },
-            mounted() {
-                setInterval(() => {
-                    vm.opacity -= 0.01;
-                    if (vm.opacity <= 0) vm.opacity = 1;
-                }, 16);
-            },
-        });
-
-        // 外部定时器实现 (不推荐)
-        // setInterval(() => {
-        //     vm.opacity -= 0.01;
-        //     if (vm.opacity <= 0) vm.opacity = 1;
-        // }, 16);
-    </script>
+    // 外部定时器实现 (不推荐)
+    /*
+    setInterval(() => {
+      vm.opacity -= 0.01;
+      if (vm.opacity <= 0) vm.opacity = 1;
+    }, 16);
+    */
+    
+  </script>
 </html>
