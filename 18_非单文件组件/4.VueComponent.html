@@ -34,7 +34,7 @@
   <script type="text/javascript">
     Vue.config.productionTip = false;
 
-    // 定义school组件
+    // 定义school组件，返回值是一个 VueComponent 构造函数，模板里<School/>，就new出了一个vc实例对象
     const school = Vue.extend({
       name: 'school',
       template: `
