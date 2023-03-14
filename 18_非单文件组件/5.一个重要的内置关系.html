@@ -60,7 +60,7 @@
       components: {school},
     });
 
-    console.log('@@@', school.prototype.__proto__ === Vue.prototype)
+    console.log('@@@', school.prototype.__proto__ === Vue.prototype);  // true
 
     // 定义一个构造函数
     function Demo() {
@@ -75,11 +75,11 @@
 
     console.log(d.__proto__);  // ★★★实例的[隐式原型属性]
 
-    console.log(Demo.prototype === d.__proto__);
+    console.log(Demo.prototype === d.__proto__);  // true
     
     /* prototype 和 __proto__ 都指向原型对象 */
     
-    // 程序员通过显式原型属性操作原型对象，追加一个x属性，值为99，实例对象d也能读到99
+    // 通过显式原型属性操作原型对象，追加一个x属性，值为99，实例对象d也能读到99
     Demo.prototype.x = 99;
 
     console.log('@', d);
